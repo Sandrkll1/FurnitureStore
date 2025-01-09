@@ -1,0 +1,114 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis_service
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=redis_service
+      - JWS_SECRET_KEY=${JWS_SECRET_KEY}
+      - JWS_ALGORITHM=${JWS_ALGORITHM}
+      - JWS_ACCESS_TOKEN_EXPIRE_MINUTES=${JWS_ACCESS_TOKEN_EXPIRE_MINUTES}
+      - JWS_REFRESH_TOKEN_EXPIRE_DAYS=${JWS_REFRESH_TOKEN_EXPIRE_DAYS}
+    networks:
+      - my_network
+    volumes:
+      - ./data:/data
+    restart: always
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    expose:
+      - "5432"
+    networks:
+      - my_network
+    restart: always
+
+  redis_service:
+    image: redis:latest
+    container_name: redis_furniture
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - my_network
+    restart: always
+
+#  nginx:
+#    image: nginx:alpine
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - $PWD/nginx.conf:/etc/nginx/nginx.conf:ro
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#    networks:
+#      - my_network
+#    restart: always
+#
+#  certbot:
+#    image: certbot/certbot
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot -w /var/www/certbot --force-renewal --email bazhenovsasha17052006@gmail.com -d api.excellentjewellery.ru --agree-tos
+#    depends_on:
+#      - nginx
+    # restart: always
+
+#  migrations:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    command: ["alembic", "upgrade", "head"]
+#    depends_on:
+#      - db
+#    environment:
+#      - DB_HOST=db
+#      - DB_PORT=5432
+#      - DB_USER=${DB_USER}
+#      - DB_PASS=${DB_PASS}
+#      - DB_NAME=${DB_NAME}
+#    networks:
+#      - my_network
+
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  data:
+  redis_data:
+
+networks:
+  my_network:
