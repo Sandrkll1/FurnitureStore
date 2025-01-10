@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://194.226.169.195:8001/api',
+  baseURL: 'https://course.excellentjewellery.ru/furniture/api',
 });
 
 axiosInstance.interceptors.request.use(
