@@ -41,7 +41,7 @@ const ProductDetail = () => {
   };
 
   const getImageUrl = (imagePath) => {
-    return `https://course.excellentjewellery.ru/furniture/api/data/stream?image_path=${encodeURIComponent(imagePath)}`;
+    return `https://course.excellentjewellery.ru/furniture/api/data/stream?image_path=${imagePath}`;
   };
 
   const handleAddToCart = () => {
