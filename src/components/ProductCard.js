@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
   };
 
   const getImageUrl = (imagePath) => {
-    return `https://course.excellentjewellery.ru/furniture/api/data/stream?image_path=${imagePath}`;
+    return `https://course.excellentjewellery.ru/furniture/api/data/stream?image_path=${encodeURIComponent(imagePath)}`;
   };
 
   return (
