@@ -4,7 +4,7 @@ import { Card, Button, InputGroup, FormControl, Carousel } from 'react-bootstrap
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
-import {api, axiosInstance} from '../api/axiosConfig';
+import api from '../api/axiosConfig';
 
 const ProductCard = ({ product }) => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
   };
 
   const getImageUrl = (imagePath) => {
-    return `${axiosInstance.baseURL}/data/stream?image_path=${encodeURIComponent(imagePath)}`;
+    return `https://course.excellentjewellery.ru/furniture/api/data/stream?image_path=${encodeURIComponent(imagePath)}`;
   };
 
   return (
