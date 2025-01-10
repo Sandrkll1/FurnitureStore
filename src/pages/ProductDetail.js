@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Container, Row, Col, Image, Spinner, Alert, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import axios from '../api/axiosConfig';
+import {axios, axiosInstance} from '../api/axiosConfig';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
@@ -41,7 +41,7 @@ const ProductDetail = () => {
   };
 
   const getImageUrl = (imagePath) => {
-    return `http://localhost:8000/api/data/stream?image_path=${encodeURIComponent(imagePath)}`;
+    return `${axiosInstance.baseURL}/data/stream?image_path=${encodeURIComponent(imagePath)}`;
   };
 
   const handleAddToCart = () => {
