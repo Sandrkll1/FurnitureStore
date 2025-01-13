@@ -35,7 +35,7 @@ const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity = 1) => {
     if (!user) return;
     try {
-      await api.post('/cart', { product_id: productId, quantity });
+      await api.post('/cart/', { product_id: productId, quantity });
       await fetchCart();
     } catch (error) {
       console.error('Ошибка при добавлении в корзину:', error);
@@ -45,7 +45,7 @@ const CartProvider = ({ children }) => {
   const removeFromCart = async (productId) => {
     if (!user) return;
     try {
-      await api.delete('/cart', { params: { product_id: productId } });
+      await api.delete('/cart/', { params: { product_id: productId } });
       await fetchCart();
     } catch (error) {
       console.error('Ошибка при удалении из корзины:', error);
@@ -55,7 +55,7 @@ const CartProvider = ({ children }) => {
   const updateQuantity = async (productId, quantity) => {
     if (!user) return;
     try {
-      await api.put('/cart', { product_id: productId, quantity });
+      await api.put('/cart/', { product_id: productId, quantity });
       await fetchCart();
     } catch (error) {
       console.error('Ошибка при обновлении количества:', error);
