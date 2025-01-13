@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getAuthTokens, setAuthTokens, clearAuthTokens } from '../utils/auth';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://course.excellentjewellery.ru/furniture/api',
 });
 
 const enhancedLogger = (...args) => {
@@ -93,7 +93,7 @@ api.interceptors.response.use(
 
       try {
         const response = await axios.post(
-          'http://localhost:8000/api/token/refresh',
+          'https://course.excellentjewellery.ru/furniture/api/token/refresh',
           { refresh_token: tokens.refresh_token }
         );
 
