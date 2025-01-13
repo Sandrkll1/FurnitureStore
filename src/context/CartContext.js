@@ -18,7 +18,7 @@ const CartProvider = ({ children }) => {
     }
     setLoading(true);
     try {
-      const response = await api.get('/cart');
+      const response = await api.get('/cart/');
       setCart(response.data);
     } catch (error) {
       console.error('Ошибка при загрузке корзины:', error);
