@@ -17,7 +17,7 @@ const CategoryManagement = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('/products/category');
+      const response = await axios.get('/products/category/');
       setCategories(response.data);
     } catch (err) {
       console.error('Ошибка загрузки категорий:', err);
@@ -39,7 +39,7 @@ const CategoryManagement = () => {
           'category_data',
           JSON.stringify({ id, name, description })
         );
-        await axios.put('/products/categories', formData);
+        await axios.put('/products/categories/', formData);
 
         // Перезагружаем категории из API
         await fetchCategories();
@@ -50,7 +50,7 @@ const CategoryManagement = () => {
           'category_data',
           JSON.stringify({ name, description })
         );
-        await axios.post('/products/categories', formData);
+        await axios.post('/products/categories/', formData);
 
         // Перезагружаем категории из API
         await fetchCategories();
