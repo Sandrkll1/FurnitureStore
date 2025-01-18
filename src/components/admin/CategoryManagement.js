@@ -17,7 +17,7 @@ const CategoryManagement = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('/products/category/');
+      const response = await axios.get('/products/category');
       setCategories(response.data);
     } catch (err) {
       console.error('Ошибка загрузки категорий:', err);
